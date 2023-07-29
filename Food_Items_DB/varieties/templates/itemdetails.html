@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>FoodItem Details</h3>
+
+<div class="container">
+    <div class="row justify-container-center m-4">
+
+                <div class="col-md-4">
+                    <a href="{% url 'showallitems' %}" class="btn btn-success">Back</a>
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ x.Item_Image.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ x.Item_Name }}</h5>
+                            <h4 class="card-text">{{ x.Item_Quantity }}</h4>
+                            <p class="card-text">{{ x.Item_Category }}</p>
+                            <p class="card-text">{{ x.Item_Cost }}</p>
+                            <p class="card-text">{{ x.Item_Review }}</p>
+                            <p class="card-text">{{ x.Manufactured_Date }}</p>
+                    <a href="{% url 'deleteitem' x.pk %}" class="btn btn-danger">DELETE</a>
+                    <a href="{% url 'updateitem' x.pk %}" class="btn btn-success">UPDATE</a>
+                    </div>
+
+                    </div>
+                </div>
+    </div>
+</div>
+    
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3 align="center">show items </h3>
+
+<div class="container">
+    <div class="row justify-container-center m-4">
+
+        {% if foods %}
+
+
+        {% for x in foods %}
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ x.Item_Image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ x.Item_Name }}</h5>
+                    <h4 class="card-text">{{ x.Item_Quantity }}</h4>
+                    <p class="card-text">{{ x.Item_Category }}</p>
+                    <p class="card-text">{{ x.Item_Cost }}</p>
+                    <p class="card-text">{{ x.Item_Review }}</p>
+                    <p class="card-text">{{ x.Manufactured_Date }}</p>
+                    <a href="{% url 'itemdetails' x.pk %}" class="btn btn-primary">More Details</a>
+
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+    </div>
+</div>
+
+<p>..sorry ,there is no particular products</p>
+
+{% endif %}
+
+
+<h5>pagination</h5>
+<div class="row m-5">
+    <div class="col-md-12 m-3">
+        {% if foods.has_other_pages %}
+        <ul class="pagination">
+            {% if foods.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ foods.previous__page__number }}"><span class="page-link">Previous</span></a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a href="?page={{ foods.previous__page__number }}" class="page-link">previous</a>
+            </li>
+            {% endif %}
+
+            <!--open number pagination-->
+
+            {% for i in foods.paginator.page_range %}
+            {% if foods.number == i %}
+            <li class="page-item active">
+                <a href="?page={{i}}">{{ i }}</a>
+            </li>
+            {% else %}
+            <li class="'page-item">
+                <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            <!--closed Number Pagination -->
+
+            <!--Here Next button is started -->
+            {% if foods.has_next %}
+            <ul class="pagination">
+
+                <li class="page-item">
+                    <a href="?page={{ foods.next__page__number }}"><span class="page-link">Next</span></a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a href="?page={{ foods.paginator.number_pages }}" class="page-link">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+            {% endif %}
+
+    </div>
+</div>
+</div>
+
+<!-- Open category -->
+
+<div class="col-md-4">
+    <h2>Category</h2>
+    <a href="{% url 'showallitems' %}" class="list-group-item">
+        <li class="list-group-item active" aria-current="true">All FoodItems</li>
+    </a>
+    {% for category in categories %}
+    <li class="list-group-item">
+        <a href="{% url 'showallitems' %}?category={{ category.name }}">
+    <li class="list-group-item">{{ category.name }}</li>
+    </a>
+
+    </li>
+
+    {% endfor %}
+</div>
+
+<!-- Closed Category -->
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h4 align="'center">Search Results</h4>
+<div class="container">
+    <div class="row justify-container-center m-4">
+
+        {% if foods %}
+
+        {% for x in foods %}
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ x.Item_Image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ x.Item_Name }}</h5>
+                    <h4 class="card-text">{{ x.Item_Quantity }}</h4>
+                    <p class="card-text">{{ x.Item_Category }}</p>
+                    <p class="card-text">{{ x.Item_Cost }}</p>
+                    <p class="card-text">{{ x.Item_Review }}</p>
+                    <a href="{% url 'itemdetails' x.pk %}" class="btn btn-primary">More Details</a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+    </div>
+</div>
+
+<p>..sorry ,there is no particular products</p>
+
+{% endif %}
+
+</div>
+
+{% endblock %}
